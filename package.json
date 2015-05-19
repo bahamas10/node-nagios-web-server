@@ -1,0 +1,35 @@
+{
+  "name": "nagios-web-server",
+  "version": "0.0.0",
+  "description": "A CGI / PHP node runner script to replace Apache for Nagios",
+  "main": "./nagios-web-server.js",
+  "preferGlobal": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "nagios-web-server": "./nagios-web-server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bahamas10/node-nagios-web-server.git"
+  },
+  "keywords": [
+    "nagios",
+    "cgi",
+    "php"
+  ],
+  "author": "Dave Eddy <dave@daveeddy.com> (http://www.daveeddy.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bahamas10/node-nagios-web-server/issues"
+  },
+  "homepage": "https://github.com/bahamas10/node-nagios-web-server",
+  "dependencies": {
+    "access-log": "^0.3.9",
+    "cgi": "^0.3.1",
+    "latest": "^0.2.0",
+    "posix-getopt": "^1.1.0",
+    "static-route": "^0.1.1"
+  }
+}
