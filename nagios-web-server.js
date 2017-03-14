@@ -15,6 +15,7 @@ var url = require('url');
 var accesslog = require('access-log');
 var cgi = require('cgi');
 var getopt = require('posix-getopt');
+var jsprim = require('jsprim');
 
 var package = require('./package.json');
 
@@ -107,7 +108,12 @@ function onrequest(req, res) {
     f += 'index.php';
   if (path.extname(f) === '.php') {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    var child = spawn('php', [f]);
+
+    var phpopts = {
+      env: jsprim.deepCopy(process.env)
+    };
+    phpopts.env.REMOTE_USER = opts.header && req.headers[opts.header] || opts.user;
+    var child = spawn('php', [f], phpopts);
     child.stdout.pipe(res);
     child.stderr.pipe(process.stderr);
     child.on('close', function(code) {
