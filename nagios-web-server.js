@@ -26,6 +26,7 @@ var opts = {
   cgidir: process.env.NAGIOS_WEB_SERVER_CGIDIR || '/opt/local/libexec/nagios/cgi-bin',
   user: process.env.NAGIOS_WEB_SERVER_USER || 'nagiosadmin',
   header: process.env.NAGIOS_WEB_SERVER_HEADER,
+  cgicfg: process.env.NAGIOS_WEB_CGI_CONFIG,
 };
 
 var usage = [
@@ -88,6 +89,7 @@ function onlisten() {
 function onrequest(req, res) {
   accesslog(req, res);
   var uri = url.parse(req.url);
+  var normalized = path.normalize(uri.pathname);
 
   // check CGI
   var match = uri.pathname.match(/\/cgi-bin(\/[^\/]+)/);
@@ -98,12 +100,15 @@ function onrequest(req, res) {
         REMOTE_USER: opts.header && req.headers[opts.header] || opts.user,
       }
     };
+    if (opts.cgicfg) {
+      cgiopts.env.NAGIOS_CGI_CONFIG = opts.cgicfg;
+    }
     cgi(script, cgiopts)(req, res);
     return;
   }
 
   // check PHP
-  var f = path.join(opts.phpdir, path.normalize(uri.pathname));
+  var f = path.join(opts.phpdir, normalized);
   if (/\/$/.test(f))
     f += 'index.php';
   if (path.extname(f) === '.php') {
