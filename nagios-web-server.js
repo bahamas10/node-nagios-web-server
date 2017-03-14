@@ -59,7 +59,7 @@ while ((option = parser.getopt()) !== undefined) {
     case 'h': console.log(usage); process.exit(0); break;
     case 'P': opts.phpdir = option.optarg; break;
     case 'p': opts.port = parseInt(option.optarg, 10); break;
-    case 'U': opts.url = option.optarg; break;
+    case 'U': opts.user = option.optarg; break;
     case 'u': // check for updates
       require('latest').checkupdate(package, function(ret, msg) {
         console.log(msg);
