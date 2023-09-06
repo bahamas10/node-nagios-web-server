@@ -103,6 +103,7 @@ function onrequest(req, res) {
     if (opts.cgicfg) {
       cgiopts.env.NAGIOS_CGI_CONFIG = opts.cgicfg;
     }
+    res.setHeader('Access-Control-Allow-Origin', '*');
     cgi(script, cgiopts)(req, res);
     return;
   }

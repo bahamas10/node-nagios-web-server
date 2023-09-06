@@ -1,6 +1,6 @@
 {
   "name": "nagios-web-server",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A CGI / PHP node runner script to replace Apache for Nagios",
   "main": "./nagios-web-server.js",
   "preferGlobal": true,
